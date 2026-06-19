@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm chứng giả thuyết — AI đọc ảnh y khoa</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--ok:#3fb950;--warn:#d29922;--danger:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Segoe UI,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:2rem 1.5rem 4rem}
+header{text-align:center;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+header h1{font-size:1.6rem;margin-bottom:.4rem}
+header p{color:var(--muted);font-size:.95rem}
+.badge{display:inline-block;background:rgba(88,166,255,.15);color:var(--accent);padding:.2rem .7rem;border-radius:999px;font-size:.8rem;margin-top:.6rem}
+section{margin-bottom:2.5rem}
+section h2{font-size:1.2rem;color:var(--accent);margin-bottom:1rem;padding-left:.75rem;border-left:3px solid var(--accent)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1rem}
+.card h3{font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.93rem}
+.card ul{padding-left:1.2rem;margin-top:.5rem}
+.card li{margin-bottom:.35rem}
+.hl{color:var(--text);font-weight:600}
+.tag{display:inline-block;font-size:.75rem;padding:.15rem .5rem;border-radius:4px;margin-right:.4rem}
+.tag-expensive{background:rgba(248,81,73,.15);color:var(--danger)}
+.tag-cheap{background:rgba(63,185,80,.15);color:var(--ok)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.compare{grid-template-columns:1fr}}
+.proto{border:2px dashed var(--border);border-radius:10px;padding:1.25rem;margin-top:1rem;background:rgba(0,0,0,.2)}
+.proto h4{font-size:.9rem;margin-bottom:.75rem;color:var(--warn)}
+.xray-wrap{position:relative;width:100%;max-width:400px;margin:0 auto;background:#1a1a2e;border-radius:8px;overflow:hidden}
+.xray-wrap svg{display:block;width:100%;height:auto}
+.overlay-box{position:absolute;border:2px solid var(--danger);background:rgba(248,81,73,.2);pointer-events:none;transition:opacity .3s}
+.overlay-box.hidden{opacity:0}
+.btn{display:inline-block;padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.9rem;margin:.25rem}
+.btn:hover{opacity:.9}
+.btn-outline{background:transparent;border:1px solid var(--accent);color:var(--accent)}
+.timer{font-size:1.4rem;font-weight:700;color:var(--warn);text-align:center;margin:.5rem 0}
+.survey label{display:block;margin:.5rem 0;font-size:.9rem;color:var(--muted)}
+.survey input[type=range]{width:100%}
+.result-box{background:rgba(63,185,80,.1);border:1px solid var(--ok);border-radius:6px;padding:.75rem;margin-top:.75rem;font-size:.85rem;display:none}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Kiểm chứng giả thuyết sản phẩm</h1>
+<p>AI Hỗ Trợ Đọc Ảnh Y Khoa &amp; Đánh Dấu Vùng Nghi Ngờ</p>
+<!-- <span class="badge">Hoàng Đức Trường · 2A202600552 · Day 16</span> -->
+</header>
+
+<section id="step1">
+<h2>Bước 1 — Giả thuyết quan trọng</h2>
+<div class="card">
+<p>Chúng tôi chọn giả thuyết cốt lõi <span class="hl">A4</span> từ phân tích JTBD:</p>
+<blockquote style="margin:1rem 0;padding:1rem;border-left:3px solid var(--warn);background:rgba(210,153,34,.08);color:var(--text);font-style:italic">
+"Lớp phủ YOLO trên ảnh X-quang ngực đủ chính xác và đáng tin — bác sĩ CĐHA sẽ dùng nó để xác định vùng bất thường nhanh hơn thay vì tắt hoặc bỏ qua hệ thống."
+</blockquote>
+<p>Nếu giả thuyết này sai, toàn bộ giá trị sản phẩm ở giai đoạn 1 (YOLO) sụp đổ — dù Med Gemma diễn giải hay không cũng không cứu được.</p>
+</div>
+</section>
+
+<section id="step2">
+<h2>Bước 2 — Cách team định kiểm chứng (đắt)</h2>
+<div class="card">
+<span class="tag tag-expensive">Chi phí cao · 4–8 tuần</span>
+<ul>
+<li><span class="hl">Pilot 2 tuần</span> tích hợp pipeline đầy đủ vào workstation bệnh viện thật</li>
+<li>Thu thập <span class="hl">100+ ca</span> có chẩn đoán chuẩn vàng (ground truth) từ bác sĩ senior</li>
+<li>Đo <span class="hl">ROC / AUC</span>, độ nhạy, độ đặc hiệu trên ảnh DICOM thật của BV</li>
+<li>Xây UI workstation hoàn chỉnh + kết nối PACS + chạy Med Gemma giai đoạn 2</li>
+<li>Ước tính: 3–5 kỹ sư, phần cứng GPU, phê duyệt IRB/đạo đức y khoa</li>
+</ul>
+</div>
+</section>
+
+<section id="step3">
+<h2>Bước 3 — Ba cách rẻ hơn để test cùng giả thuyết</h2>
+<div class="compare">
+<div class="card">
+<span class="tag tag-cheap">Cách 1 · ~2 ngày</span>
+<h3>So sánh ảnh tĩnh (A/B)</h3>
+<p>Chạy YOLO offline trên 20 ảnh X-quang. In hoặc hiển thị song song: ảnh gốc vs ảnh có khung đánh dấu. Đo thời gian bác sĩ tìm vùng nghi ngờ và hỏi mức độ tin cậy (1–5).</p>
+<p><span class="hl">Cùng test:</span> YOLO có giúp phát hiện nhanh hơn không? Bác sĩ có tin lớp phủ không?</p>
+</div>
+<div class="card">
+<span class="tag tag-cheap">Cách 2 · ~3 ngày</span>
+<h3>Phỏng vấn + mô hình giấy/HTML</h3>
+<p>Mời 3–5 bác sĩ xem prototype click được (không cần AI thật). Hỏi có dùng trong ca trực không, điều gì khiến họ tắt hệ thống.</p>
+<p><span class="hl">Cùng test:</span> Workflow có phù hợp thói quen đọc phim không? UI có đủ tin cậy để không bị bỏ qua?</p>
+</div>
+<div class="card">
+<span class="tag tag-cheap">Cách 3 · ~1 tuần</span>
+<h3>Wizard of Oz (người giả lập AI)</h3>
+<p>Một người trong team đánh dấu vùng nghi ngờ thủ công (hoặc dùng YOLO chạy trước), bác sĩ nghĩ đó là AI realtime. Quan sát hành vi thật trong 10–15 ca.</p>
+<p><span class="hl">Cùng test:</span> Bác sĩ có thực sự dựa vào lớp phủ khi nghĩ đó là AI không? Họ sửa/xóa đánh dấu bao nhiêu lần?</p>
+</div>
+</div>
+</section>
+
+<section id="step4">
+<h2>Bước 4 — Prototype nhanh 3 cách</h2>
+
+<div class="card">
+<div class="proto">
+<h4>Prototype 1 — So sánh ảnh tĩnh (bật/tắt lớp phủ)</h4>
+<div class="xray-wrap" id="xray1">
+<svg viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+<rect width="400" height="480" fill="#0f0f1a"/>
+<ellipse cx="200" cy="120" rx="70" ry="50" fill="#2a2a3e" opacity=".8"/>
+<path d="M120 200 Q200 180 280 200 L270 400 Q200 420 130 400 Z" fill="#1e1e30"/>
+<ellipse cx="160" cy="280" rx="45" ry="60" fill="#252538"/>
+<ellipse cx="240" cy="280" rx="45" ry="60" fill="#252538"/>
+<text x="200" y="460" text-anchor="middle" fill="#555" font-size="12">Ảnh X-quang mô phỏng</text>
+</svg>
+<div class="overlay-box" id="bbox1" style="left:18%;top:52%;width:28%;height:22%"></div>
+</div>
+<p style="text-align:center;margin:.75rem 0;font-size:.85rem;color:var(--muted)">Khung đỏ = vùng YOLO đánh dấu (mô phỏng)</p>
+<button class="btn" onclick="toggleOverlay()">Bật / Tắt lớp phủ</button>
+<button class="btn btn-outline" onclick="startTimer()">Bắt đầu đo thời gian</button>
+<div class="timer" id="timerDisplay">00:00</div>
+</div>
+</div>
+
+<div class="card">
+<div class="proto">
+<h4>Prototype 2 — Khảo sát sau khi xem mô hình</h4>
+<div class="survey">
+<label>Bạn có tin lớp phủ AI đánh dấu đúng vùng nghi ngờ? <span id="trustVal">3</span>/5</label>
+<input type="range" min="1" max="5" value="3" oninput="document.getElementById('trustVal').textContent=this.value">
+<label>Bạn có dùng tính năng này trong ca trực 80–100 ca/ngày? <span id="useVal">3</span>/5</label>
+<input type="range" min="1" max="5" value="3" oninput="document.getElementById('useVal').textContent=this.value">
+<label>Điều gì khiến bạn tắt hệ thống?</label>
+<select id="offReason" style="width:100%;padding:.4rem;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:4px">
+<option>Đánh dấu sai quá nhiều</option>
+<option>Làm chậm quy trình</option>
+<option>Không tin AI</option>
+<option>Giao diện khó dùng</option>
+<option>Không có lý do — sẽ dùng</option>
+</select>
+<button class="btn" style="margin-top:.75rem" onclick="submitSurvey()">Gửi phản hồi mô phỏng</button>
+<div class="result-box" id="surveyResult"></div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="proto">
+<h4>Prototype 3 — Wizard of Oz (bác sĩ click vùng nghi ngờ)</h4>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:.75rem">Bác sĩ không biết đánh dấu do "AI" hay người — click vào vùng bạn nghi ngờ trên ảnh:</p>
+<div class="xray-wrap" id="xray3" style="cursor:crosshair" onclick="markClick(event)">
+<svg viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+<rect width="400" height="480" fill="#0f0f1a"/>
+<ellipse cx="200" cy="120" rx="70" ry="50" fill="#2a2a3e" opacity=".8"/>
+<path d="M120 200 Q200 180 280 200 L270 400 Q200 420 130 400 Z" fill="#1e1e30"/>
+<ellipse cx="160" cy="280" rx="45" ry="60" fill="#252538"/>
+<ellipse cx="240" cy="280" rx="45" ry="60" fill="#252538"/>
+</svg>
+</div>
+<p style="font-size:.85rem;color:var(--muted);margin-top:.5rem">Số lần click: <span id="clickCount">0</span> · So với vùng AI đánh dấu: <span id="matchResult">—</span></p>
+<button class="btn btn-outline" onclick="showAIOverlay()">Tiết lộ vùng AI đánh dấu</button>
+</div>
+</div>
+</section>
+
+<section id="summary">
+<h2>Tóm tắt</h2>
+<div class="card">
+<table style="width:100%;border-collapse:collapse;font-size:.9rem">
+<tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:.5rem;color:var(--muted)">Phương pháp</th><th style="text-align:left;padding:.5rem;color:var(--muted)">Thời gian</th><th style="text-align:left;padding:.5rem;color:var(--muted)">Chi phí</th><th style="text-align:left;padding:.5rem;color:var(--muted)">Đo được gì</th></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:.5rem">Pilot đầy đủ</td><td style="padding:.5rem">4–8 tuần</td><td style="padding:.5rem;color:var(--danger)">Rất cao</td><td style="padding:.5rem">ROC, AUC, hành vi thật</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:.5rem">So sánh ảnh tĩnh</td><td style="padding:.5rem">2 ngày</td><td style="padding:.5rem;color:var(--ok)">Thấp</td><td style="padding:.5rem">Thời gian, mức tin cậy</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:.5rem">Phỏng vấn + mockup</td><td style="padding:.5rem">3 ngày</td><td style="padding:.5rem;color:var(--ok)">Thấp</td><td style="padding:.5rem">Ý định dùng, rào cản</td></tr>
+<tr><td style="padding:.5rem">Wizard of Oz</td><td style="padding:.5rem">1 tuần</td><td style="padding:.5rem;color:var(--ok)">Trung bình thấp</td><td style="padding:.5rem">Hành vi thật trước khi build</td></tr>
+</table>
+<p style="margin-top:1rem">Kế hoạch: chạy 3 cách rẻ trước trong 1–2 tuần. Nếu bác sĩ tin lớp phủ ≥4/5 và thời gian giảm ≥20%, mới đầu tư pilot 100+ ca.</p>
+</div>
+</section>
+
+<footer>Dự án AI Hỗ Trợ Đọc Ảnh Y Khoa · VinUni AI Product Day 16</footer>
+</div>
+
+<script>
+let timerInterval=null,seconds=0,clicks=[],aiBox={x:.18,y:.52,w:.28,h:.22};
+function toggleOverlay(){document.getElementById('bbox1').classList.toggle('hidden')}
+function startTimer(){
+  seconds=0;clearInterval(timerInterval);
+  document.getElementById('timerDisplay').textContent='00:00';
+  timerInterval=setInterval(()=>{seconds++;const m=String(Math.floor(seconds/60)).padStart(2,'0');const s=String(seconds%60).padStart(2,'0');document.getElementById('timerDisplay').textContent=m+':'+s},1000);
+}
+function submitSurvey(){
+  const t=document.getElementById('trustVal').textContent;
+  const u=document.getElementById('useVal').textContent;
+  const r=document.getElementById('offReason').value;
+  const el=document.getElementById('surveyResult');
+  el.style.display='block';
+  el.innerHTML='Đã ghi: Tin cậy <b>'+t+'/5</b> · Ý định dùng <b>'+u+'/5</b> · Lý do tắt: <b>'+r+'</b><br><small>Trong test thật, dữ liệu này được lưu vào bảng tổng hợp 3–5 bác sĩ.</small>';
+}
+function markClick(e){
+  const wrap=document.getElementById('xray3');
+  const rect=wrap.getBoundingClientRect();
+  const x=(e.clientX-rect.left)/rect.width;
+  const y=(e.clientY-rect.top)/rect.height;
+  clicks.push({x,y});
+  document.getElementById('clickCount').textContent=clicks.length;
+  const dot=document.createElement('div');
+  dot.style.cssText='position:absolute;left:'+(x*100)+'%;top:'+(y*100)+'%;width:12px;height:12px;margin:-6px 0 0 -6px;background:var(--accent);border-radius:50%;pointer-events:none';
+  wrap.appendChild(dot);
+}
+function showAIOverlay(){
+  const wrap=document.getElementById('xray3');
+  let box=wrap.querySelector('.overlay-box');
+  if(!box){box=document.createElement('div');box.className='overlay-box';box.style.cssText='left:18%;top:52%;width:28%;height:22%';wrap.appendChild(box)}
+  const last=clicks[clicks.length-1];
+  if(last){
+    const cx=last.x,cy=last.y;
+    const inBox=cx>=aiBox.x&&cx<=aiBox.x+aiBox.w&&cy>=aiBox.y&&cy<=aiBox.y+aiBox.h;
+    document.getElementById('matchResult').textContent=inBox?'Trùng vùng AI':'Không trùng — bác sĩ và AI khác vùng';
+    document.getElementById('matchResult').style.color=inBox?'var(--ok)':'var(--warn)';
+  }
+}
+</script>
+</body>
+</html>
